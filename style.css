@@ -1,0 +1,156 @@
+/* Apply basic reset and font consistency */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    color: #f0f8ff; /* Aliceblue for text */
+    background-color: #000; /* Black background */
+    font-family: 'Inter', Arial, sans-serif;
+    line-height: 1.4;
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
+}
+
+/* Typography styles */
+h1 {
+    max-width: 55%;
+    letter-spacing: -0.05em;
+    font-size: clamp(2rem, 5vw, 4.5rem); /* Responsive font size */
+    font-weight: 800;
+    line-height: 1.1;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+h2 {
+    font-weight: 600;
+}
+
+img {
+    width: 100%;
+    max-width: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.section {
+    height: 100vh; /* Increased height for better scrolling feel */
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1a1a1a;
+    color: #fff;
+}
+
+/* --- GSAP Scroll Specific Styles --- */
+
+.scroll_wrap {
+    position: relative;
+    /* This container determines the total height of the scroll interaction */
+}
+
+/* The element that creates the scroll triggers. Each child is 100vh tall. */
+.scroll_trigger_list {
+    position: relative;
+    z-index: 1; /* Ensures triggers are above the sticky content */
+}
+
+/* Each trigger creates space in the scroll flow */
+.scroll_trigger {
+    height: 150vh; /* Increased height per trigger for longer animation */
+    position: relative;
+}
+
+/* The container for the sticky content */
+.scroll_ {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Make sure users can scroll through it */
+    z-index: 5;
+}
+
+/* The actual sticky element */
+.scroll_sticky {
+    width: 100%;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    overflow: hidden; /* Crucial for hiding items that are not active */
+}
+
+/* Container for all items, ensuring they overlap */
+.scroll_content_list {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* Individual item to be revealed/clipped */
+.scroll_item {
+    width: 100%;
+    height: 100%;
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* Initially hidden by setting clipPath to a zero area */
+    clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
+    opacity: 1; /* Ensure opacity is not zero, as clip-path handles visibility */
+    background-color: rgba(0, 0, 0, 0.4); /* Subtle background for contrast */
+    border-radius: 12px;
+    transition: background-color 0.3s ease;
+}
+
+/* Style for the image inside the item */
+.scroll_img {
+    width: 40%;
+    max-width: 350px;
+    aspect-ratio: 1 / 1;
+    flex: none;
+    overflow: hidden;
+    border-radius: 50%;
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+}
+
+
+/* --- Responsive Adjustments --- */
+
+@media screen and (max-width: 991px) {
+    .scroll_item {
+        padding: 2rem;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .scroll_title {
+        max-width: 80%;
+        font-size: 8vw;
+    }
+
+    .scroll_img {
+        width: 80%;
+        max-width: 300px;
+    }
+}
+
+@media screen and (max-width: 479px) {
+    .scroll_item {
+        padding: 1rem;
+    }
+    .scroll_title {
+        font-size: 10vw;
+    }
+}

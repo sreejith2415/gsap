@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ancient Temples of India - GSAP Scroll</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load GSAP Core -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <!-- Load GSAP ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <style>
+        /* Apply Inter font */
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* Hide horizontal scrollbar initially */
+            background-color: #1a1a2e; /* Dark background for dramatic effect */
+            color: #ffffff;
+        }
+
+        /* Essential styles for the horizontal section */
+        #pin-container {
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #1a1a2e;
+        }
+
+        #scroll-section {
+            display: flex;
+            height: 100%; /* Important for horizontal alignment */
+            padding-right: 100vw; /* Padding to ensure the last slide scrolls into view */
+        }
+
+        .slide {
+            flex-shrink: 0; /* Prevents slides from shrinking */
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .image-card {
+            background-size: cover;
+            background-position: center;
+            border-radius: 1.5rem; /* Rounded corners for aesthetics */
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .title-overlay {
+            background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+        }
+
+        /* Custom scroll indicator styling */
+        #scroll-indicator {
+            position: fixed;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 50;
+            display: flex;
+            gap: 0.5rem;
+        }
+        .dot {
+            width: 8px;
+            height: 8px;
+            background-color: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .dot.active {
+            background-color: #fca311; /* Vibrant orange color */
+            transform: scale(1.5);
+        }
+
+        /* Responsive adjustments for the card and text */
+        @media (max-width: 768px) {
+            .slide {
+                padding: 1rem;
+            }
+            .image-card {
+                width: 100%;
+                height: 75vh;
+            }
+            .title-text {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Scroll Indicator -->
+    <div id="scroll-indicator"></div>
+
+    <!-- Intro Section: Standard Vertical Scroll -->
+    <section class="min-h-screen flex flex-col items-center justify-center text-center bg-gray-900 p-8">
+        <h2 class="text-5xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-600 mb-6 tracking-tight">
+            The Stonework Saga
+        </h2>
+        <p class="max-w-3xl text-xl text-gray-300 mb-10">
+            Embark on a journey through the millennia.  India's most breathtaking ancient temples.
+        </p>
+        <div class="animate-bounce mt-4">
+            <svg class="w-8 h-8 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+        </div>
+    </section>
+
+    <!-- GSAP Pinned Horizontal Scroll Section -->
+    <div id="pin-container">
+        <div id="scroll-section">
+            <!-- SLIDE 1: Konark Sun Temple, Odisha -->
+            <div class="slide" data-index="0">
+                <div class="image-card w-11/12 h-5/6 md:w-3/4 md:h-5/6 relative" 
+                     style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/2/2f/Virupaksha_Temple%2C_Hampi.jpg');" 
+                     data-image="https://images.pexels.com/photos/20371128/pexels-photo-20371128.jpeg">
+                    <div class="title-overlay absolute inset-0 flex items-end p-6 rounded-2xl">
+                        <div class="text-left">
+                            <h3 class="title-text text-3xl md:text-5xl font-bold mb-1">Konark Sun Temple</h3>
+                            <p class="text-lg text-gray-300">Odisha, 13th Century CE</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 2: Virupaksha Temple, Hampi -->
+            <div class="slide" data-index="1">
+                 <div class="image-card w-11/12 h-5/6 md:w-3/4 md:h-5/6 relative" 
+                     style="background-image: url('https://placehold.co/1200x800/333333/FFFFFF?text=Virupaksha+Temple');" 
+                     data-image="https://images.pexels.com/photos/14721504/pexels-photo-14721504.jpeg">
+                    <div class="title-overlay absolute inset-0 flex items-end p-6 rounded-2xl">
+                         <div class="text-left">
+                            <h3 class="title-text text-3xl md:text-5xl font-bold mb-1">Virupaksha Temple</h3>
+                            <p class="text-lg text-gray-300">Hampi, Karnataka, 7th Century CE</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 3: Brihadeeswarar Temple, Thanjavur -->
+            <div class="slide" data-index="2">
+                 <div class="image-card w-11/12 h-5/6 md:w-3/4 md:h-5/6 relative" 
+                     style="background-image: url('https://placehold.co/1200x800/444444/FFFFFF?text=Brihadeeswarar+Temple');" 
+                     data-image="https://images.pexels.com/photos/15267925/pexels-photo-15267925.jpeg">
+                    <div class="title-overlay absolute inset-0 flex items-end p-6 rounded-2xl">
+                         <div class="text-left">
+                            <h3 class="title-text text-3xl md:text-5xl font-bold mb-1">Brihadeeswarar Temple</h3>
+                            <p class="text-lg text-gray-300">Thanjavur, Tamil Nadu, 11th Century CE</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 4: Khajuraho Group of Monuments, Madhya Pradesh -->
+            <div class="slide" data-index="3">
+                 <div class="image-card w-11/12 h-5/6 md:w-3/4 md:h-5/6 relative" 
+                     style="background-image: url('https://placehold.co/1200x800/555555/FFFFFF?text=Khajuraho+Temple');" 
+                     data-image="https://images.pexels.com/photos/19195927/pexels-photo-19195927.jpeg">
+                    <div class="title-overlay absolute inset-0 flex items-end p-6 rounded-2xl">
+                         <div class="text-left">
+                            <h3 class="title-text text-3xl md:text-5xl font-bold mb-1">Khajuraho Temples</h3>
+                            <p class="text-lg text-gray-300">Madhya Pradesh, 10th-11th Century CE</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Outro Section: Standard Vertical Scroll -->
+    <section class="min-h-screen flex flex-col items-center justify-center text-center bg-gray-900 p-8">
+        <h2 class="text-5xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-yellow-400 mb-6 tracking-tight">
+            The Journey Continues
+        </h2>
+        <p class="max-w-3xl text-xl text-gray-300 mb-10">
+            The ancient heritage of India is vast and endless...... 
+        </p>
+        <button onclick="window.scrollTo(0, 0);" class="bg-yellow-500 text-gray-900 py-3 px-8 rounded-full font-bold shadow-lg hover:bg-yellow-400 transition transform hover:scale-105">
+            Back to Top
+        </button>
+    </section>
+
+    <script>
+        // --- Image Preloading Function ---
+        const preloadImages = (images, callback) => {
+            let loadedCount = 0;
+            const total = images.length;
+            
+            // Function to run after all images are loaded
+            const onAllLoaded = () => {
+                const loader = document.getElementById('loader');
+                if (loader) loader.remove();
+                callback();
+            };
+
+            // If no images or total is 0, proceed immediately
+            if (total === 0) {
+                onAllLoaded();
+                return;
+            }
+
+            images.forEach(imgUrl => {
+                const img = new Image();
+                img.onload = img.onerror = () => {
+                    loadedCount++;
+                    if (loadedCount === total) {
+                        onAllLoaded();
+                    }
+                };
+                img.src = imgUrl;
+            });
+        };
+        
+        // --- Main GSAP Setup Function ---
+        function setupGSAPScroll() {
+            // Get necessary elements
+            const pinContainer = document.getElementById('pin-container');
+            const scrollSection = document.getElementById('scroll-section');
+            const slides = gsap.utils.toArray(".slide");
+            const indicator = document.getElementById('scroll-indicator');
+            
+            // Calculate total width of the horizontal section
+            // Each slide is 100vw, so the total width is slides.length * 100vw
+            // Minus 100vw because we want the last element to align to the left edge
+            const totalScrollWidth = slides.length * window.innerWidth;
+            const scrollDistance = totalScrollWidth - window.innerWidth;
+            
+            // 1. Create Dots for Indicator
+            slides.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                if (index === 0) dot.classList.add('active');
+                indicator.appendChild(dot);
+            });
+            const dots = gsap.utils.toArray(".dot");
+            
+            // 2. Register ScrollTrigger plugin
+            gsap.registerPlugin(ScrollTrigger);
+
+            // 3. Create the Horizontal Scroll Animation
+            const horizontalScroll = gsap.to(scrollSection, {
+                // Animate the 'x' property (horizontal movement)
+                x: -scrollDistance, // Move to the left by the calculated distance
+                ease: "none",
+                
+                scrollTrigger: {
+                    trigger: pinContainer,
+                    pin: true, // Pin the container while scrolling
+                    scrub: 1, // Smooth scrolling effect
+                    start: "top top",
+                    // The end distance is calculated to be equivalent to the total width of the slides
+                    end: `+=${scrollDistance}`, 
+                    
+                    // Update the active dot as the user scrolls
+                    onUpdate: (self) => {
+                        // Calculate which slide is currently in view
+                        const scrollProgress = self.progress; // 0 to 1
+                        const activeIndex = Math.floor(scrollProgress * slides.length);
+                        
+                        // Update dots
+                        dots.forEach((dot, index) => {
+                            dot.classList.remove('active');
+                            if (index === activeIndex) {
+                                dot.classList.add('active');
+                            }
+                        });
+
+                        // Optional: Add a slight scale/hover effect to the current card
+                        slides.forEach((slide, index) => {
+                            const card = slide.querySelector('.image-card');
+                            if (index === activeIndex) {
+                                gsap.to(card, { scale: 1.05, duration: 0.5, ease: "power1.out" });
+                            } else {
+                                gsap.to(card, { scale: 1, duration: 0.5, ease: "power1.out" });
+                            }
+                        });
+                    },
+                    // Ensure refresh happens when resizing
+                    invalidateOnRefresh: true, 
+                }
+            });
+            
+            // 4. Handle Cleanup on Resize/Orientation Change
+            ScrollTrigger.addEventListener("refreshInit", () => {
+                // Recalculate dimensions on refresh
+                const newTotalScrollWidth = slides.length * window.innerWidth;
+                const newScrollDistance = newTotalScrollWidth - window.innerWidth;
+
+                // Update the tween and ScrollTrigger end point
+                horizontalScroll.vars.x = -newScrollDistance;
+                horizontalScroll.scrollTrigger.vars.end = `+=${newScrollDistance}`;
+                ScrollTrigger.refresh(true);
+            });
+            
+            console.log("GSAP ScrollTrigger setup complete.");
+        }
+
+        // --- Initial Load Logic ---
+        window.onload = function() {
+            // Get images to preload from the data-image attributes
+            const imageElements = document.querySelectorAll('.image-card');
+            const imagesToPreload = Array.from(imageElements).map(el => {
+                const imgUrl = el.getAttribute('data-image');
+                if (imgUrl) {
+                    // Replace placeholder image with real URL and add fallback
+                    el.style.backgroundImage = `url('${imgUrl}'), url('${el.style.backgroundImage.match(/url\(['"]?(.*?)['"]?\)/)[1]}')`;
+                }
+                return imgUrl;
+            }).filter(url => url);
+
+            // Add a simple loading overlay while preloading
+            const loadingHtml = `
+                <div id="loader" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-gray-900 transition-opacity duration-500">
+                    <div class="w-16 h-16 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin"></div>
+                    <p class="mt-4 text-xl font-semibold text-gray-300">Loading Temples...</p>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('afterbegin', loadingHtml);
+
+            // Preload images and then set up the GSAP animation
+            preloadImages(imagesToPreload, setupGSAPScroll);
+        };
+    </script>
+</body>
+</html>
